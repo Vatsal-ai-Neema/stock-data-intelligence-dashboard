@@ -1,4 +1,4 @@
-# Stock Data Intelligence Dashboard
+# Build Stock Data Intelligence Dashboard
 
 I built this project as part of the JarNox Software Intern assignment. It is a mini financial data platform that demonstrates stock data collection, cleaning, REST API development, and interactive visualization.
 
