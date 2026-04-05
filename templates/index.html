@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Data Intelligence Dashboard</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+</head>
+<body>
+    <div class="page-shell">
+        <aside class="sidebar">
+            <div class="brand-block">
+                <p class="eyebrow">JarNox Assignment</p>
+                <h1>Stock Data Intelligence Dashboard</h1>
+                <p class="muted">Browse seeded market data, inspect technical metrics, and compare two stocks on a single chart.</p>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    <h2>Companies</h2>
+                    <span id="company-count" class="badge">0 loaded</span>
+                </div>
+                <div id="company-list" class="company-list"></div>
+            </div>
+        </aside>
+
+        <main class="content">
+            <section class="topbar">
+                <div class="range-controls">
+                    <button class="range-btn active" data-days="30">Last 30 Days</button>
+                    <button class="range-btn" data-days="90">Last 90 Days</button>
+                    <button class="range-btn" data-days="180">Last 180 Days</button>
+                </div>
+                <div class="compare-controls">
+                    <label for="compare-select">Compare with</label>
+                    <select id="compare-select">
+                        <option value="">No comparison</option>
+                    </select>
+                    <button id="compare-btn" class="secondary-btn">Update Chart</button>
+                </div>
+            </section>
+
+            <section class="hero-grid">
+                <article class="metric-card">
+                    <p>Selected Company</p>
+                    <h3 id="selected-company">Loading...</h3>
+                </article>
+                <article class="metric-card">
+                    <p>Latest Close</p>
+                    <h3 id="latest-close">-</h3>
+                </article>
+                <article class="metric-card">
+                    <p>52-Week Range</p>
+                    <h3 id="range-52w">-</h3>
+                </article>
+                <article class="metric-card">
+                    <p>7-Day Volatility</p>
+                    <h3 id="volatility">-</h3>
+                </article>
+            </section>
+
+            <section class="chart-panel">
+                <div class="panel-heading">
+                    <h2>Closing Price Trend</h2>
+                    <div class="chart-heading-tools">
+                        <span id="chart-subtitle" class="muted">Preparing chart...</span>
+                        <div class="chart-zoom-controls">
+                            <button id="zoom-in-btn" class="zoom-btn" type="button" aria-label="Zoom in">+</button>
+                            <button id="zoom-out-btn" class="zoom-btn" type="button" aria-label="Zoom out">-</button>
+                            <button id="zoom-reset-btn" class="zoom-btn wide" type="button">Reset</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-canvas-wrap">
+                    <canvas id="price-chart"></canvas>
+                </div>
+            </section>
+
+            <section class="insights-grid">
+                <article class="panel">
+                    <div class="panel-heading">
+                        <h2>Summary</h2>
+                    </div>
+                    <dl id="summary-list" class="summary-list"></dl>
+                </article>
+                <article class="panel">
+                    <div class="panel-heading">
+                        <h2>What This Shows</h2>
+                    </div>
+                    <ul class="insight-list">
+                        <li>Daily return captures the percentage move from open to close.</li>
+                        <li>7-day moving average smooths short-term price swings.</li>
+                        <li>Volatility score is the rolling 7-day standard deviation of daily return.</li>
+                        <li>Use the compare selector to overlay another stock on the same chart.</li>
+                    </ul>
+                </article>
+            </section>
+        </main>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
