@@ -1,9 +1,14 @@
 from __future__ import annotations
 
 import sqlite3
+import sys
+from pathlib import Path
 
 import pandas as pd
-import yfinance as yf
+
+ROOT_DIR = Path(__file__).resolve().parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 
 from app.database import DB_PATH, initialize_database
 
@@ -60,10 +65,21 @@ def prepare_frame(symbol: str, history: pd.DataFrame) -> pd.DataFrame:
 
 def main() -> None:
     initialize_database()
+    print("Starting real data download...")
+    print("Importing yfinance...")
+    try:
+        import yfinance as yf
+    except KeyboardInterrupt as exc:
+        raise SystemExit(
+            "The script was interrupted while importing yfinance. Try running it again and let the import finish."
+        ) from exc
+
     rows = []
     for symbol in SYMBOLS:
+        print(f"Fetching {symbol}...")
         history = yf.Ticker(symbol).history(period="1y", interval="1d", auto_adjust=False)
         if history.empty:
+            print(f"No data returned for {symbol}, skipping.")
             continue
         rows.append(prepare_frame(symbol, history))
 
